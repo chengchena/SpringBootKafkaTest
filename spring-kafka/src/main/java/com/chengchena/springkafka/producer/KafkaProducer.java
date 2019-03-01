@@ -19,13 +19,12 @@ public class KafkaProducer {
 
     @Autowired
     private KafkaTemplate kafkaTemplate;
-
     /**
      * 定时任务
      */
-    @Scheduled(cron = "00/1 * * * * ?")
+    @Scheduled(cron = "00/2 * * * * ?")
     public void send() {
-        String message = "生产者发送信息" + UUID.randomUUID().toString();
+        String message = "生产者" + UUID.randomUUID().toString();
         ListenableFuture future = kafkaTemplate.send("test", message);
         future.addCallback(
                 o -> System.out.println("send-消息发送成功：" + message),
